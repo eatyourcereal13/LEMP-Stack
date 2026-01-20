@@ -1,0 +1,31 @@
+name: Docker Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build Docker image
+      run: docker build -t rocky .
+      
+    - name: Run security scan
+      run: docker scan rocky
+      
+    - name: Run container
+      run: |
+        docker run -d -p 8080:80 \
+          --name lemp-test rocky
+        sleep 10
+        
+    - name: Run tests
+      run: |
+        curl -f http://localhost:8080/
+        curl -f http://localhost:8080/metrics
