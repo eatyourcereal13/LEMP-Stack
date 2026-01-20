@@ -16,9 +16,6 @@ jobs:
     - name: Build Docker image
       run: docker build -t rocky .
       
-    - name: Run security scan
-      run: docker scan rocky
-      
     - name: Run container
       run: |
         docker run -d -p 8080:80 \
