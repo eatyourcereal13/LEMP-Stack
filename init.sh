@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -e #== выход при любой ошибке ==
 
 #== инициализация БД при первом запуске ==
 if [ ! -d "/var/lib/mysql/mysql" ]; then
@@ -9,7 +9,7 @@ fi
 #== запуск БД в фоне ==
 mysqld --user=mysql --datadir='/var/lib/mysql' > /dev/null 2>&1 &
 
-#== ожидание запуска БД ==
+#== ожидание запуска БД 30 подключений с интервалом в 1 сек==
 for i in {1..30}; do
     if mysqladmin ping --silent 2>/dev/null; then
         break
@@ -26,5 +26,5 @@ mysql < /init.sql 2>/dev/null
 #== запуск PHP-FPM
 php-fpm > /dev/null 2>&1 &
 
-#== запуск nginx ==
+#== запуск nginx с PID 1==
 exec nginx -g 'daemon off;'
