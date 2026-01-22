@@ -21,6 +21,13 @@
 - Docker
 - Make утилита (для удобства)
 
+Сначала склонируйте репозиторий:
+
+```bash
+git clone https://github.com/eatyourcereal13/LEMP-Stack.git
+cd LEMP-Stack
+```
+
 ```bash
 # Собрать образ
 docker build -t rocky .
