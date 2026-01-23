@@ -30,10 +30,6 @@ COPY init.sql /init.sql
 #== скрипт запуска всех сервисов ==
 COPY init.sh /init.sh
 
-#== для безопасности ready-only файловая система
-RUN chmod -R 755 /var/www/html && \
-    chmod 644 /var/www/html/index.php
-
 #== строчка, чтобы init.sh был исполняемым ==
 RUN chmod +x /init.sh
 
